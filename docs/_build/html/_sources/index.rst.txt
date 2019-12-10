@@ -6,12 +6,17 @@
 Welcome to pynomer's documentation!
 ===================================
 
+`pynomer <https://github.com/nleguillarme/pynomer>`_ is a simple python wrapper for `nomer <https://github.com/globalbioticinteractions/nomer>`_.
+Nomer is a stand-alone java application which maps identifiers and names to taxonomic names and ontological terms.
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Installation
 
+   install
 
-pynomer API
-===================
-.. automodule:: pynomer.pynomer
-  :members:
+.. toctree::
+   :maxdepth: 2
+   :caption: Usage
+
+   usage
