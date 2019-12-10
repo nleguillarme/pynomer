@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to pynomer’s documentation! &#8212; pynomer 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-pynomer-s-documentation">
+<h1>Welcome to pynomer’s documentation!<a class="headerlink" href="#welcome-to-pynomer-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="module-pynomer.pynomer">
+<span id="pynomer-api"></span><h1>pynomer API<a class="headerlink" href="#module-pynomer.pynomer" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pynomer.pynomer.append">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param">id=''</em>, <em class="sig-param">name=''</em>, <em class="sig-param">matcher='globi-taxon-cache'</em>, <em class="sig-param">p=None</em>, <em class="sig-param">o='tsv'</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append term match to row using id and name columns specified
+in input schema. Multiple matches result in multiple rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – [string]  External id. Default: &lt;empty string&gt;</p></li>
+<li><p><strong>name</strong> – [string]  Name. Default: &lt;empty string&gt;</p></li>
+<li><p><strong>matcher</strong> – [string]  Selected matcher. Default: “globi-taxon-cache”</p></li>
+<li><p><strong>p</strong> – [string]  Path to properties file to override defaults. Default: None</p></li>
+<li><p><strong>o</strong> – [“tsv”, “json”]  Output format. Default: “tsv”</p></li>
+</ul>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">)</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;ITIS:180547&quot;</span><span class="p">,</span> <span class="n">matcher</span><span class="o">=</span><span class="s2">&quot;globi-enrich&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.clean">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">clean</code><span class="sig-paren">(</span><em class="sig-param">p=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans term matcher cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> – [string]  Path to properties file to override defaults. Default: None</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.input_schema">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">input_schema</code><span class="sig-paren">(</span><em class="sig-param">p=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.input_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show input schema in JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> – [string]  Path to properties file to override defaults. Default: None</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">input_schema</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.matchers">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">matchers</code><span class="sig-paren">(</span><em class="sig-param">o='tsv'</em>, <em class="sig-param">v=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.matchers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists supported matcher and (optionally) their descriptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>o</strong> – [“tsv”, “json”]  Output format. Default: “tsv”</p></li>
+<li><p><strong>v</strong> – [bool]  If set, matcher descriptions are included for tsv. Default: False</p></li>
+</ul>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">matchers</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.output_schema">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">output_schema</code><span class="sig-paren">(</span><em class="sig-param">p=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.output_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show output schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> – [string]  Path to properties file to override defaults. Default: None</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">output_schema</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.properties">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">properties</code><span class="sig-paren">(</span><em class="sig-param">p=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists configuration properties. Can be used to make a local copy and override
+default settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> – [string]  Path to properties file to override defaults. Default: None</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">properties</span><span class="p">()</span>
+<span class="n">new_properties</span> <span class="o">=</span> <span class="s2">&quot;./path/to/a/property_file&quot;</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">new_properties</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.replace">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">id=''</em>, <em class="sig-param">name=''</em>, <em class="sig-param">matcher='globi-taxon-cache'</em>, <em class="sig-param">p=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace exact term matches in row. The input schema is used
+to select the id and/or name to match to. The output schema is
+used to select the columns to write into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – [string]  External id. Default: &lt;empty string&gt;</p></li>
+<li><p><strong>name</strong> – [string]  Name. Default: &lt;empty string&gt;</p></li>
+<li><p><strong>matcher</strong> – [string]  Selected matcher. Default: “globi-taxon-cache”</p></li>
+<li><p><strong>p</strong> – [string]  Path to properties file to override defaults. Default: None</p></li>
+</ul>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">)</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;ITIS:180547&quot;</span><span class="p">,</span> <span class="n">matcher</span><span class="o">=</span><span class="s2">&quot;globi-enrich&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pynomer.pynomer.version">
+<code class="sig-prename descclassname">pynomer.pynomer.</code><code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pynomer.pynomer.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show Version.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynomer</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">version</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">pynomer</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Nicolas Le Guillarme.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -4,4 +4,13 @@ __version__ = "0.1.0"
 __author__ = "nleguillarme <nicolas.leguillarme@univ-grenoble-alpes.fr>"
 __all__ = []
 
-from .pynomer import *
+from .pynomer import (
+    version,
+    clean,
+    input_schema,
+    output_schema,
+    properties,
+    matchers,
+    replace,
+    append,
+)
