@@ -17,6 +17,7 @@ setup(
     name="pynomer",
     version="0.1.0",
     url="https://github.com/nleguillarme/pynomer",
+    download_url="https://github.com/nleguillarme/pynomer/archive/0.1.0.tar.gz"
     license="MIT",
     author="nleguillarme",
     author_email="nicolas.leguillarme@univ-grenoble-alpes.fr",
