@@ -9,22 +9,40 @@ pynomer
    :target: https://travis-ci.org/borntyping/cookiecutter-pypackage-minimal
    :alt: Latest Travis CI build status
 
-A python wrapper for nomer
+`pynomer <https://github.com/nleguillarme/pynomer>`_ is a simple python wrapper for `nomer <https://github.com/globalbioticinteractions/nomer>`_.
+Nomer is a stand-alone java application which maps identifiers and names to taxonomic names and ontological terms.
 
 Usage
 -----
 
+See full documentation at https://pynomer.readthedocs.io/en/latest/.
+
 Installation
 ------------
 
-Requirements
-^^^^^^^^^^^^
+Download and build nomer-docker container
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Compatibility
--------------
+pynomer uses Docker to run nomer. The container is built as follows:
 
-Licence
+.. code-block:: bash
+
+  docker build github.com/nleguillarme/nomer-docker#master:docker -t nomer-docker
+
+Install pynomer python package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+pynomer stable version can be installed from PyPi.
+
+::
+
+  pip install pynomer
+
+
+License
 -------
+
+License: MIT
 
 Authors
 -------
