@@ -17,14 +17,14 @@ setup(
     name="pynomer",
     version="0.1.0",
     url="https://github.com/nleguillarme/pynomer",
-    download_url="https://github.com/nleguillarme/pynomer/archive/0.1.0.tar.gz"
+    download_url="https://github.com/nleguillarme/pynomer/archive/0.1.0.tar.gz",
     license="MIT",
     author="nleguillarme",
     author_email="nicolas.leguillarme@univ-grenoble-alpes.fr",
     description="A python wrapper for nomer",
     long_description=read("README.rst"),
     packages=find_packages(exclude=("tests",)),
-    install_requires=[setuptools],
+    install_requires=["setuptools"],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "License :: OSI Approved :: MIT License",
