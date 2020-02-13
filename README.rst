@@ -8,6 +8,10 @@ pynomer
 .. image:: https://travis-ci.org/borntyping/cookiecutter-pypackage-minimal.png
    :target: https://travis-ci.org/borntyping/cookiecutter-pypackage-minimal
    :alt: Latest Travis CI build status
+   
+.. image:: https://readthedocs.org/projects/pynomer/badge/?version=latest
+    :target: https://pynomer.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 `pynomer <https://github.com/nleguillarme/pynomer>`_ is a simple python wrapper for `nomer <https://github.com/globalbioticinteractions/nomer>`_.
 Nomer is a stand-alone java application which maps identifiers and names to taxonomic names and ontological terms.
