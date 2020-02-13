@@ -1,140 +1,173 @@
-from .nomer_utils import *
+import urllib
+import requests
+import json
 
 
-def version():
-    """
-    Show Version.
-
-    Usage::
-
-        import pynomer as pn
-        pn.version()
-    """
-    return run_nomer(get_nomer_simple_cmd())
+class NoResultException(Exception):
+    pass
 
 
-def clean(p=None):
-    """
-    Cleans term matcher cache.
+class NomerClient:
+    def __init__(self, base_url):
+        """
+        Usage::
 
-    :param p: [string]  Path to properties file to override defaults. Default: None
+            from pynomer import NomerClient
 
-    Usage::
+            client = NomerClient(base_url="http://localhost:5000/")
+        """
+        self.base_url = base_url
 
-        import pynomer as pn
-        pn.clean()
-    """
-    return run_nomer(get_nomer_simple_cmd(cmd="clean", properties=p))
+    def version(self):
+        """
+        Show Version.
 
+        Usage::
 
-def input_schema(p=None):
-    """
-    Show input schema in JSON.
+            client.version()
+        """
+        res = self.run_nomer(nomer_cmd="version")
+        return res["result"]
 
-    :param p: [string]  Path to properties file to override defaults. Default: None
+    def clean(self, p=None):
+        """
+        Cleans term matcher cache.
 
-    Usage::
+        :param p: [string]  Path to properties file to override defaults. Default: None
 
-        import pynomer as pn
-        pn.input_schema()
-    """
-    return run_nomer(get_nomer_simple_cmd(cmd="input-schema", properties=p))
+        Usage::
 
+            client.clean()
+        """
+        res = self.run_nomer(nomer_cmd="clean", p=self.get_properties(p))
+        return res["result"]
 
-def output_schema(p=None):
-    """
-    Show output schema.
+    def input_schema(self, p=None):
+        """
+        Show input schema in JSON.
 
-    :param p: [string]  Path to properties file to override defaults. Default: None
+        :param p: [string]  Path to properties file to override defaults. Default: None
 
-    Usage::
+        Usage::
 
-        import pynomer as pn
-        pn.output_schema()
-    """
-    return run_nomer(get_nomer_simple_cmd(cmd="output-schema", properties=p))
+            client.input_schema()
+            p = "./new_properties.txt"
+            client.input_schema(p=p)
+        """
+        res = self.run_nomer(nomer_cmd="input_schema", p=self.get_properties(p))
+        return res["result"]
 
+    def output_schema(self, p=None):
+        """
+        Show output schema.
 
-def properties(p=None):
-    """
-    Lists configuration properties. Can be used to make a local copy and override
-    default settings.
+        :param p: [string]  Path to properties file to override defaults. Default: None
 
-    :param p: [string]  Path to properties file to override defaults. Default: None
+        Usage::
 
-    Usage::
+            client.output_schema()
+            p = "./new_properties.txt"
+            client.output_schema(p=p)
+        """
+        res = self.run_nomer(nomer_cmd="output_schema", p=self.get_properties(p))
+        return res["result"]
 
-        import pynomer as pn
-        pn.properties()
-        new_properties = "./path/to/a/property_file"
-        pn.properties(p=new_properties)
-    """
-    return run_nomer(get_nomer_simple_cmd(cmd="properties", properties=p))
+    def properties(self, p=None):
+        """
+        Lists configuration properties. Can be used to make a local copy and override
+        default settings.
 
+        :param p: [string]  Path to properties file to override defaults. Default: None
 
-def matchers(o="tsv", v=False):
-    """
-    Lists supported matcher and (optionally) their descriptions.
+        Usage::
 
-    :param o: ["tsv", "json"]  Output format. Default: "tsv"
-    :param v: [bool]  If set, matcher descriptions are included for tsv. Default: False
+            pn.properties()
+            p = "./new_properties.txt"
+            client.properties(p=p)
+        """
+        res = self.run_nomer(nomer_cmd="properties", p=self.get_properties(p))
+        return res["result"]
 
-    Usage::
+    def matchers(self, o="tsv", v=False):
+        """
+        Lists supported matcher and (optionally) their descriptions.
 
-        import pynomer as pn
-        pn.matchers()
-    """
-    return run_nomer(get_nomer_simple_cmd(cmd="matchers", verbose=v, output_format=o))
+        :param o: ["tsv", "json"]  Output format. Default: "tsv"
+        :param v: [bool]  If set, matcher descriptions are included for tsv. Default: False
 
+        Usage::
 
-def replace(id="", name="", matcher="globi-taxon-cache", p=None):
-    """
-    Replace exact term matches in row. The input schema is used
-    to select the id and/or name to match to. The output schema is
-    used to select the columns to write into.
+            client.matchers()
+        """
+        res = self.run_nomer(nomer_cmd="matchers", v=v, o=o)
+        return res["result"]
 
-    :param id: [string]  External id. Default: <empty string>
-    :param name: [string]  Name. Default: <empty string>
-    :param matcher: [string]  Selected matcher. Default: "globi-taxon-cache"
-    :param p: [string]  Path to properties file to override defaults. Default: None
+    def replace(self, id="", name="", matcher="globi-taxon-cache", p=None):
+        """
+        Replace exact term matches in row. The input schema is used
+        to select the id and/or name to match to. The output schema is
+        used to select the columns to write into.
 
-    Usage::
+        :param id: [string]  External id. Default: <empty string>
+        :param name: [string]  Name. Default: <empty string>
+        :param matcher: [string]  Selected matcher. Default: "globi-taxon-cache"
+        :param p: [string]  Path to properties file to override defaults. Default: None
 
-        import pynomer as pn
-        pn.replace(name="Homo sapiens")
-        pn.replace(id="ITIS:180547", matcher="globi-enrich")
-    """
-    return run_nomer(
-        get_nomer_match_cmd(
-            cmd="replace", id=id, name=name, matcher=matcher, properties=p
-        )
-    )
+        Usage::
 
-
-def append(id="", name="", matcher="globi-taxon-cache", p=None, o="tsv"):
-    """
-    Append term match to row using id and name columns specified
-    in input schema. Multiple matches result in multiple rows.
-
-    :param id: [string]  External id. Default: <empty string>
-    :param name: [string]  Name. Default: <empty string>
-    :param matcher: [string]  Selected matcher. Default: "globi-taxon-cache"
-    :param p: [string]  Path to properties file to override defaults. Default: None
-    :param o: ["tsv", "json"]  Output format. Default: "tsv"
-
-    Usage::
-
-        import pynomer as pn
-        pn.append(name="Homo sapiens")
-        pn.append(id="ITIS:180547", matcher="globi-enrich")
-    """
-    return run_nomer(
-        get_nomer_match_cmd(
-            cmd="append",
+            client.replace(name="Homo sapiens")
+            client.replace(id="ITIS:180547", matcher="globi-enrich")
+        """
+        res = self.run_nomer(
+            nomer_cmd="replace",
             id=id,
             name=name,
             matcher=matcher,
-            properties=p,
-            output_format=o,
+            p=self.get_properties(p),
         )
-    )
+        return res["result"]
+
+    def append(self, id="", name="", matcher="globi-taxon-cache", p=None, o="tsv"):
+        """
+        Append term match to row using id and name columns specified
+        in input schema. Multiple matches result in multiple rows.
+
+        :param id: [string]  External id. Default: <empty string>
+        :param name: [string]  Name. Default: <empty string>
+        :param matcher: [string]  Selected matcher. Default: "globi-taxon-cache"
+        :param p: [string]  Path to properties file to override defaults. Default: None
+        :param o: ["tsv", "json"]  Output format. Default: "tsv"
+
+        Usage::
+
+            client.append(name="Homo sapiens")
+            client.append(id="ITIS:180547", matcher="globi-enrich")
+        """
+        res = self.run_nomer(
+            nomer_cmd="append",
+            id=id,
+            name=name,
+            matcher=matcher,
+            p=self.get_properties(p),
+            o=o,
+        )
+        return res["result"]
+
+    def get_properties(self, p):
+        if p != None:
+            with open(p, "r") as file:
+                properties = file.read()
+                return properties
+        else:
+            return p
+
+    def run_nomer(self, nomer_cmd="version", **kwargs):
+        url = "{}{}?{}".format(self.base_url, nomer_cmd, urllib.parse.urlencode(kwargs))
+        resp = requests.get(url)
+        resp.raise_for_status()
+        self.check_ctype(resp.headers["Content-Type"])
+        return resp.json()
+
+    def check_ctype(self, x, ctype="application/json"):
+        if x != ctype:
+            raise NoResultException("Content-Type do not equal " + ctype)
