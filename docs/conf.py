@@ -20,11 +20,11 @@ sys.setrecursionlimit(1500)
 # -- Project information -----------------------------------------------------
 
 project = "pynomer"
-copyright = "2019, Nicolas Le Guillarme"
+copyright = "2019-2020, Nicolas Le Guillarme"
 author = "Nicolas Le Guillarme"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.0"
+release = "0.1.1"
 
 
 # -- General configuration ---------------------------------------------------

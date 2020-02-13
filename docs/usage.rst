@@ -1,4 +1,6 @@
 pynomer API
 ===================
-.. automodule:: pynomer.pynomer
+.. autoclass:: pynomer.NomerClient
   :members:
+
+  .. automethod:: __init__
