@@ -27,11 +27,8 @@ Installation
 Download and build nomer-docker container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-pynomer uses Docker to run nomer. The container is built as follows:
+pynomer uses HTTP requests to access nomer commands exposes by a dockerized RESTful API. You can find the instructions for building and running the nomer-docker container `here <https://github.com/nleguillarme/nomer-docker>`_
 
-.. code-block:: bash
-
-  docker build github.com/nleguillarme/nomer-docker#master:docker -t nomer-docker
 
 Install pynomer python package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
