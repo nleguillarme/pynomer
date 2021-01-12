@@ -53,18 +53,19 @@ As a python module
 With Docker
 **********************
 
-Build from source
+Build image from source:
 ::
 
     git clone https://github.com/nleguillarme/pynomer.git
     cd pynomer
     docker build -t pynomer:latest .
 
+Run commands in the container:
 ::
 
     docker run -v `pwd`/.nomer:/.nomer pynomer:latest pynomer append "\tHomo sapiens" -e -o json
     
-:warning: When running pynomer append and replace commands in Docker, you have to use the -e option !
+|:warning:| When running pynomer append and replace commands in Docker, you have to use the -e option !
 
 License
 -------
