@@ -11,9 +11,7 @@ RUN sudo sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/globalbi
 
 WORKDIR /
 
-COPY dist/pynomer-0.1.2.tar.gz /
-
-RUN pip3 install pynomer-0.1.2.tar.gz
+RUN pip3 install pynomer
 
 #ENTRYPOINT [ "python3" ]
 
