@@ -5,40 +5,66 @@ pynomer
     :target: https://pypi.python.org/pypi/pynomer
     :alt: Latest PyPI version
 
-.. image:: https://travis-ci.org/borntyping/cookiecutter-pypackage-minimal.png
-   :target: https://travis-ci.org/borntyping/cookiecutter-pypackage-minimal
-   :alt: Latest Travis CI build status
-   
-.. image:: https://readthedocs.org/projects/pynomer/badge/?version=latest
-    :target: https://pynomer.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-
 `pynomer <https://github.com/nleguillarme/pynomer>`_ is a simple python wrapper for `nomer <https://github.com/globalbioticinteractions/nomer>`_.
 Nomer is a stand-alone java application which maps identifiers and names to taxonomic names and ontological terms.
-
-Usage
------
-
-See full documentation at https://pynomer.readthedocs.io/en/latest/.
 
 Installation
 ------------
 
-Download and build nomer-docker container
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+::
 
-pynomer uses HTTP requests to access nomer commands exposes by a dockerized RESTful API. You can find the instructions for building and running the nomer-docker container `here <https://github.com/nleguillarme/nomer-docker>`_
+  $ pip install pynomer
 
+Usage
+-----
 
-Install pynomer python package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-pynomer stable version can be installed from PyPi.
+As a command-line tool
+**********************
 
 ::
 
-  pip install pynomer
+  pynomer --help
+  Usage: pynomer [OPTIONS] COMMAND [ARGS]...
 
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      append              Append term match to row using id and name columns...
+      clean               Cleans term matcher cache.
+      input-schema        Show input schema in JSON.
+      matchers            Lists supported matcher and (optionally) their...
+      output-schema       Show output schema.
+      properties          Lists configuration properties.
+      replace             Replace exact term matches in row.
+      validate-term       Validate terms.
+      validate-term-link  Validate term links.
+      version             Show Version.
+      
+As a python module
+**********************
+
+::
+
+    >>> from pynomer import *
+    >>> version()
+    '0.1.18'
+
+With Docker
+**********************
+
+Build from source
+::
+
+    git clone https://github.com/nleguillarme/pynomer.git
+    cd pynomer
+    docker build -t pynomer:latest .
+
+::
+
+    docker run -v `pwd`/.nomer:/.nomer pynomer:latest pynomer append "\tHomo sapiens" -e -o json
+    
+:warning: When running pynomer append and replace commands in Docker, you have to use the -e option !
 
 License
 -------
