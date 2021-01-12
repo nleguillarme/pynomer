@@ -73,3 +73,7 @@ def test_append_id(nomer_client):
 
 def test_append_name(nomer_client):
     assert nomer_client.append(name="Homo sapiens").split("\t")[3] == "EOL:327955"
+
+
+def test_append_wikidata_taxon_id_web(nomer_client):
+    assert nomer_client.append(id="EOL:327955", matcher="wikidata-taxon-id-web") != None

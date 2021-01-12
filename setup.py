@@ -1,32 +1,35 @@
-import io
-import os
-import re
+"""
+PyNomer is a simple python wrapper for nomer
+"""
+from setuptools import find_packages, setup
 
-from setuptools import find_packages
-from setuptools import setup
+dependencies = ["click", "setuptools", "requests"]
 
+# read the contents of your README file
+from os import path
 
-def read(filename):
-    filename = os.path.join(os.path.dirname(__file__), filename)
-    text_type = type(u"")
-    with io.open(filename, mode="r", encoding="utf-8") as fd:
-        return re.sub(text_type(r":[a-z]+:`~?(.*?)`"), text_type(r"``\1``"), fd.read())
-
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, "README.rst"), encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
     name="pynomer",
-    version="0.1.1",
+    version="v0.1.2",
     url="https://github.com/nleguillarme/pynomer",
-    download_url="https://github.com/nleguillarme/pynomer/archive/0.1.1.tar.gz",
     license="MIT",
-    author="nleguillarme",
+    author="Nicolas Le Guillarme",
     author_email="nicolas.leguillarme@univ-grenoble-alpes.fr",
     description="A python wrapper for nomer",
-    long_description=read("README.rst"),
-    packages=find_packages(exclude=("tests",)),
-    install_requires=["setuptools", "requests"],
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    packages=find_packages(exclude=["tests"]),
+    include_package_data=True,
+    zip_safe=False,
+    platforms="any",
+    install_requires=dependencies,
+    entry_points={"console_scripts": ["pynomer = pynomer.cli:main"]},
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 4 - Beta",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",
