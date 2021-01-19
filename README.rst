@@ -48,7 +48,7 @@ As a python module
 
     >>> from pynomer import *
     >>> version()
-    '0.1.18'
+    ('nomer version', '0.1.21')
 
 With Docker
 **********************
@@ -63,9 +63,30 @@ Build image from source:
 Run commands in the container:
 ::
 
-    docker run -v `pwd`/.nomer:/.nomer pynomer:latest pynomer append "\tHomo sapiens" -e -o json
+    docker run -v$PWD/.nomer:/.nomer pynomer:latest pynomer append "\tHomo sapiens" -e -o json
     
 |:warning:| When running pynomer append and replace commands in Docker, you have to use the -e option !
+
+As a client-server app
+**********************
+
+Build server image from source:
+::
+
+    docker build -f Dockerfile.server -t pynomer-server:latest https://github.com/nleguillarme/pynomer.git
+    
+Run pynomer server:
+::
+
+    docker run --rm -v$PWD/nomer:/nomer -p9090:9090 pynomer-server:latest
+
+Create the client:
+::
+
+    >>> from pynomer.client import NomerClient
+    >>> client = NomerClient(base_url="http://localhost:9090/")
+    >>> client.version()
+    '0.1.21'
 
 License
 -------
