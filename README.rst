@@ -11,6 +11,8 @@ Nomer is a stand-alone java application which maps identifiers and names to taxo
 Installation
 ------------
 
+Make sure you installed the latest version of nomer, or use the Docker image instead.
+
 ::
 
   $ pip install pynomer
