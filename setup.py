@@ -14,7 +14,7 @@ with open(path.join(this_directory, "README.rst"), encoding="utf-8") as f:
 
 setup(
     name="pynomer",
-    version="v0.1.3",
+    version="v0.1.4",
     url="https://github.com/nleguillarme/pynomer",
     license="MIT",
     author="Nicolas Le Guillarme",

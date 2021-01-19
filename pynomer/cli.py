@@ -19,6 +19,34 @@ def cli():
 
 
 @cli.command()
+@click.option(
+    "--properties",
+    "-p",
+    type=str,
+    help="""
+            Path to properties file to override defaults.
+            Default: <empty string>""",
+    default="",
+)
+@click.option(
+    "-e",
+    is_flag=True,
+    help="""
+            Activate echo -e option""",
+)
+def init(properties, e):
+    """
+        Init.
+
+        Usage::
+
+            pynomer init
+        """
+    _, res = pynomer.init(properties, echo_opt="-e" if e else "")
+    click.echo(res)
+
+
+@cli.command()
 def version():
     """
         Show Version.
@@ -27,7 +55,8 @@ def version():
 
             pynomer version
         """
-    click.echo(pynomer.version())
+    _, res = pynomer.version()
+    click.echo(res)
 
 
 @cli.command()
@@ -50,7 +79,8 @@ def clean(properties):
 
             pynomer clean
         """
-    click.echo(pynomer.clean(properties))
+    _, res = pynomer.clean(properties)
+    click.echo(res)
 
 
 @cli.command()
@@ -74,7 +104,8 @@ def input_schema(properties):
             pynomer input_schema
             pynomer input_schema -p ./new_properties.txt
         """
-    click.echo(pynomer.input_schema(properties))
+    _, res = pynomer.input_schema(properties)
+    click.echo(res)
 
 
 @cli.command()
@@ -98,7 +129,8 @@ def output_schema(properties):
             pynomer output_schema
             pynomer output_schema -p ./new_properties.txt
         """
-    click.echo(pynomer.output_schema(properties))
+    _, res = pynomer.output_schema(properties)
+    click.echo(res)
 
 
 @cli.command()
@@ -123,7 +155,8 @@ def properties(properties):
             pynomer properties
             pynomer properties -p ./new_properties.txt
         """
-    click.echo(pynomer.properties(properties))
+    _, res = pynomer.properties(properties)
+    click.echo(res)
 
 
 @cli.command()
@@ -154,7 +187,8 @@ def matchers(output_format, verbose):
 
             pynomer matchers
         """
-    click.echo(pynomer.matchers(output_format, verbose))
+    _, res = pynomer.matchers(output_format, verbose)
+    click.echo(res)
 
 
 @cli.command()
@@ -179,7 +213,8 @@ def validate_term(filepath, properties):
 
             pynomer validate_term https://zenodo.org/record/1213465/files/taxonCacheFirst10.tsv
         """
-    click.echo(pynomer.validate_term(filepath, properties))
+    _, res = pynomer.validate_term(filepath, properties)
+    click.echo(res)
 
 
 @cli.command()
@@ -204,7 +239,8 @@ def validate_term_link(filepath, properties):
 
             pynomer validate_term_link
         """
-    click.echo(pynomer.validate_term_link(filepath, properties))
+    _, res = pynomer.validate_term_link(filepath, properties)
+    click.echo(res)
 
 
 @cli.command()
@@ -248,7 +284,8 @@ def replace(query, matcher, properties, e):
 
             pynomer replace "ITIS:180547\\t" -m globi-enrich
         """
-    click.echo(pynomer.replace(query, matcher, properties, echo_opt="-e" if e else ""))
+    _, res = pynomer.replace(query, matcher, properties, echo_opt="-e" if e else "")
+    click.echo(res)
 
 
 @cli.command()
@@ -300,11 +337,10 @@ def append(query, matcher, properties, output_format, e):
 
             pynomer append "ITIS:180547\\t" -m globi-enrich
         """
-    click.echo(
-        pynomer.append(
-            query, matcher, properties, output_format, echo_opt="-e" if e else ""
-        )
+    _, res = pynomer.append(
+        query, matcher, properties, output_format, echo_opt="-e" if e else ""
     )
+    click.echo(res)
 
 
 def main():

@@ -1,4 +1,4 @@
-from .nomer_utils import *
+from pynomer.nomer_utils import *
 import logging
 
 logger = logging.getLogger(__name__)
@@ -9,6 +9,16 @@ class NoResultException(Exception):
     pass
 
 
+def init(properties=None, echo_opt=""):
+    append(
+        query="\tHomo sapiens",
+        matcher="globi-taxon-cache",
+        properties=properties,
+        echo_opt=echo_opt,
+    )
+    return "pynomer init", "ok"
+
+
 def version():
     """
         Show Version.
@@ -17,8 +27,8 @@ def version():
 
             version()
         """
-    _, res = run_nomer(nomer_cmd=get_nomer_simple_cmd())
-    return res
+    cmd, res = run_nomer(nomer_cmd=get_nomer_simple_cmd())
+    return cmd, res
 
 
 def clean(properties=None):
@@ -31,12 +41,12 @@ def clean(properties=None):
 
             clean()
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_simple_cmd(
             cmd="clean", properties=get_properties(properties)
         )
     )
-    return res
+    return cmd, res
 
 
 def input_schema(properties=None):
@@ -50,12 +60,12 @@ def input_schema(properties=None):
             input_schema()
             input_schema("./new_properties.txt")
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_simple_cmd(
             cmd="input-schema", properties=get_properties(properties)
         )
     )
-    return res
+    return cmd, res
 
 
 def output_schema(properties=None):
@@ -69,12 +79,12 @@ def output_schema(properties=None):
             output_schema()
             output_schema("./new_properties.txt")
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_simple_cmd(
             cmd="output-schema", properties=get_properties(properties)
         )
     )
-    return res
+    return cmd, res
 
 
 def properties(properties=None):
@@ -89,12 +99,12 @@ def properties(properties=None):
             properties()
             properties("./new_properties.txt")
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_simple_cmd(
             cmd="properties", properties=get_properties(properties)
         )
     )
-    return res
+    return cmd, res
 
 
 def matchers(output_format="tsv", verbose=False):
@@ -108,12 +118,12 @@ def matchers(output_format="tsv", verbose=False):
 
             matchers()
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_simple_cmd(
             cmd="matchers", verbose=verbose, output_format=output_format
         )
     )
-    return res
+    return cmd, res
 
 
 def validate_term(filepath="", properties=None):
@@ -127,14 +137,14 @@ def validate_term(filepath="", properties=None):
 
             validate_term("https://zenodo.org/record/1213465/files/taxonCacheFirst10.tsv")
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_validate_cmd(
             cmd="validate-term",
             filepath=filepath,
             properties=get_properties(properties),
         )
     )
-    return res
+    return cmd, res
 
 
 def validate_term_link(filepath="", properties=None):
@@ -145,14 +155,14 @@ def validate_term_link(filepath="", properties=None):
         :param p: [string]  Path to properties file to override defaults. Default: None
 
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         nomer_cmd=get_nomer_validate_cmd(
             cmd="validate-term-link",
             filepath=filepath,
             properties=get_properties(properties),
         )
     )
-    return res
+    return cmd, res
 
 
 def replace(query="", matcher="globi-taxon-cache", properties=None, echo_opt=""):
@@ -170,7 +180,7 @@ def replace(query="", matcher="globi-taxon-cache", properties=None, echo_opt="")
             replace(query="\tHomo sapiens")
             replace(query="ITIS:180547\t", matcher="globi-enrich")
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         get_nomer_match_cmd(
             cmd="replace",
             query=query,
@@ -179,7 +189,7 @@ def replace(query="", matcher="globi-taxon-cache", properties=None, echo_opt="")
             echo_opt=echo_opt,
         )
     )
-    return res
+    return cmd, res
 
 
 def append(
@@ -203,7 +213,7 @@ def append(
             append(query="\tHomo sapiens")
             append(query="ITIS:180547\t", matcher="globi-enrich")
         """
-    _, res = run_nomer(
+    cmd, res = run_nomer(
         get_nomer_match_cmd(
             cmd="append",
             query=query,
@@ -213,13 +223,8 @@ def append(
             echo_opt=echo_opt,
         )
     )
-    return res
+    return cmd, res
 
 
 def get_properties(p):
-    if p:
-        with open(p, "r") as file:
-            properties = file.read()
-            return properties
-    else:
-        return p
+    return p
