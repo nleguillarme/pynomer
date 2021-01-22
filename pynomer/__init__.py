@@ -2,7 +2,7 @@
 
 from .pynomer import *
 
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 __author__ = "nleguillarme <nicolas.leguillarme@univ-grenoble-alpes.fr>"
 __all__ = [
     "version",
